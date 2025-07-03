@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Research Portfolio - Nikhil G. Thaker, MD</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Ensure navbar styling from styles.css is preserved */
+        .navbar {
+            position: fixed !important;
+            top: 0 !important;
+            width: 100% !important;
+            background: linear-gradient(135deg, rgba(15, 20, 25, 0.98) 0%, rgba(30, 41, 59, 0.98) 100%) !important;
+            backdrop-filter: blur(20px) !important;
+            z-index: 1000 !important;
+            padding: 1rem 0 !important;
+            transition: all 0.3s ease !important;
+            border-bottom: 1px solid rgba(59, 130, 246, 0.2) !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+        }
+
+        .research-hero {
+            min-height: 60vh;
+            background: linear-gradient(135deg, #0f1419 0%, #1e293b 50%, #334155 100%);
+            display: flex;
+            align-items: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .research-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(59,130,246,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .research-hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .research-hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: whitesmoke;
+            text-shadow: 0 0 20px rgba(245, 245, 245, 0.5);
+        }
+
+        .research-hero p {
+            font-size: 1.3rem;
+            color: #cbd5e0;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .research-overview {
+            background: #f8fafc;
+            padding: 80px 0;
+        }
+
+        .research-overview-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .research-overview h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: #1e293b;
+            text-align: center;
+        }
+
+        .research-overview p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #475569;
+            margin-bottom: 1.5rem;
+        }
+
+        .research-focus-areas {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .focus-area {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            transition: transform 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .focus-area:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.15);
+        }
+
+        .focus-area i {
+            font-size: 2.5rem;
+            color: #D4AF37;
+            margin-bottom: 1rem;
+        }
+
+        .focus-area h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 1rem;
+        }
+
+        .focus-area p {
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+        .research-image {
+            text-align: center;
+            margin: 1rem 0;
+        }
+
+        .research-image img {
+            max-width: 300px;
+            max-height: 200px;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            margin: 0 1rem 1rem 0;
+        }
+
+        .research-content-with-image {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 2rem;
+            align-items: start;
+            margin: 2rem 0;
+        }
+
+        .research-text {
+            grid-column: 1;
+        }
+
+        .research-image-side {
+            grid-column: 2;
+            text-align: center;
+        }
+
+        .research-image-side img {
+            max-width: 250px;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .current-projects {
+            background: #0f1419;
+            color: white;
+            padding: 80px 0;
+        }
+
+        .current-projects h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: white;
+            text-align: center;
+        }
+
+        .projects-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: rgba(30, 41, 59, 0.8);
+            padding: 2rem;
+            border-radius: 16px;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.15);
+        }
+
+        .project-card h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: whitesmoke;
+            margin-bottom: 1rem;
+        }
+
+        .project-card p {
+            color: #cbd5e0;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .tech-tag {
+            background: rgba(212, 175, 55, 0.2);
+            color: #D4AF37;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .join-section {
+            background: linear-gradient(135deg, #3b82f6 0%, #1e293b 100%);
+            padding: 80px 0;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .join-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="circles" width="30" height="30" patternUnits="userSpaceOnUse"><circle cx="15" cy="15" r="2" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23circles)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .join-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .join-section h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: white;
+        }
+
+        .join-section p {
+            font-size: 1.2rem;
+            line-height: 1.7;
+            color: #e2e8f0;
+            margin-bottom: 2rem;
+        }
+
+        .join-form {
+            background: rgba(30, 41, 59, 0.8);
+            padding: 2rem;
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .join-form .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .join-form input,
+        .join-form textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #475569;
+            border-radius: 8px;
+            font-size: 1rem;
+            background: rgba(15, 20, 25, 0.8);
+            color: #e2e8f0;
+            font-family: inherit;
+        }
+
+        .join-form input:focus,
+        .join-form textarea:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .join-form textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .back-to-home {
+            position: fixed;
+            top: 100px;
+            left: 20px;
+            z-index: 1000;
+        }
+
+        .back-to-home a {
+            background: rgba(59, 130, 246, 0.9);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .back-to-home a:hover {
+            background: rgba(59, 130, 246, 1);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .research-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .research-hero p {
+                font-size: 1.1rem;
+            }
+
+            .back-to-home {
+                position: static;
+                text-align: center;
+                margin-bottom: 2rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .research-focus-areas {
+                grid-template-columns: 1fr;
+            }
+
+            .research-content-with-image {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .research-image-side {
+                grid-column: 1;
+            }
+            
+            .research-image-side img {
+                max-width: 200px;
+            }
+        }
+
+        .research-gallery {
+            background: white;
+            padding: 80px 0;
+        }
+
+        .gallery-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .gallery-container h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: #1e293b;
+            text-align: center;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .gallery-item {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .gallery-caption {
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .gallery-caption h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+
+        .gallery-caption p {
+            color: #64748b;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .join-research {
+            padding: 4rem 0;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+        }
+
+        .join-research h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #ffffff;
+        }
+
+        .join-research p {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            color: #e2e8f0;
+            line-height: 1.6;
+        }
+
+        .opportunities {
+            margin: 3rem 0;
+        }
+
+        .opportunities h3 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            color: #1e293b;
+            text-align: center;
+        }
+
+        .opportunity-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .opportunity-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            transition: transform 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .opportunity-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.15);
+        }
+
+        .opportunity-card h4 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: black;
+            margin-bottom: 1rem;
+        }
+
+        .opportunity-card p {
+            color: black;
+            line-height: 1.6;
+        }
+
+        .contact-info {
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .contact-info h3 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #1e293b;
+        }
+
+        .contact-info p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: white;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .contact-info .btn {
+            font-size: 1.1rem;
+            padding: 15px 30px;
+        }
+
+        .research-areas-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .research-areas-list li {
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .research-areas-list li::before {
+            content: '\2022';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+            color: #D4AF37;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">
+                    <img src="Pictures/ThakerTechLogo.png" alt="Thaker Technology Logo">
+                </a>
+                <a href="index.html">
+                    <span class="logo-text">THAKER</span>
+                    <span class="logo-tech">TECHNOLOGY</span>
+                    <div class="logo-line"></div>
+                </a>
+                <a href="index.html">
+                    <span class="logo-text" style="color: #D4AF37;">BAYTA</span>
+                    <span class="logo-tech">SYSTEMS</span>
+                    <div class="logo-line" style="background: #D4AF37;"></div>
+                </a>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#research-overview" class="nav-link">Research Overview</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#current-projects" class="nav-link">Current Projects</a>
+                </li>
+                <li class="nav-item">
+                    <a href="publications.html" class="nav-link">Selected Publications</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#join" class="nav-link">Join</a>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Back to Home Button -->
+    <div class="back-to-home">
+        <a href="index.html"><i class="fas fa-arrow-left"></i> Back to Home</a>
+    </div>
+
+    <!-- Research Hero Section -->
+    <section class="research-hero">
+        <div class="research-hero-content">
+            <h1>Research Portfolio</h1>
+            <p>Advancing healthcare through artificial intelligence, informatics, and innovative technology solutions</p>
+        </div>
+    </section>
+
+    <!-- Research Overview Section -->
+    <section id="research-overview" class="research-overview">
+        <div class="container">
+            <div class="research-content-with-image">
+                <div class="research-text">
+                    <h2>Research Overview</h2>
+                    <p>My research focuses on the intersection of artificial intelligence, healthcare informatics, and radiation oncology. I lead innovative projects that leverage cutting-edge technology to improve cancer care delivery, enhance clinical decision-making, and advance precision medicine approaches.</p>
+                    
+                    <p>Our team collaborates with leading institutions and industry partners to develop AI-powered solutions that address real-world clinical challenges. From large language models for radiation oncology to computer vision for cancer detection, we're pushing the boundaries of what's possible in healthcare technology.</p>
+                    
+                    <p>Current research areas include:</p>
+                    <ul class="research-areas-list">
+                        <li>AI and Machine Learning in Radiation Oncology</li>
+                        <li>Clinical Decision Support Systems</li>
+                        <li>Healthcare Data Interoperability</li>
+                        <li>Digital Health for Underserved Communities</li>
+                        <li>Predictive Analytics for Treatment Outcomes</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 3rem;">
+                <a href="publications.html" class="btn btn-primary">View Selected Publications</a>
+            </div>
+            
+            <div class="research-image">
+                <img src="Pictures/ASTRO24.JPEG" alt="ASTRO 2024 Conference">
+                <img src="Pictures/SalaczThaker.jpg" alt="Dr. Salacz and Dr. Thaker">
+                <img src="Pictures/Neuro Team.jpg" alt="Neuro Team">
+            </div>
+        </div>
+    </section>
+
+    <!-- Current Projects Section -->
+    <section id="current-projects" class="current-projects">
+        <div class="projects-container">
+            <h2>Current Research Projects</h2>
+            
+            <div class="projects-grid">
+                <div class="project-card">
+                    <h3>RadOncRAG - Large Language Model for Radiation Oncology</h3>
+                    <p>Developing a specialized large language model trained on radiation oncology literature and clinical guidelines to assist physicians in treatment planning and decision-making.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">TensorFlow</span>
+                        <span class="tech-tag">NLP</span>
+                        <span class="tech-tag">Clinical Data</span>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <h3>AI-Powered Computer Vision for Cancer Detection</h3>
+                    <p>Implementing deep learning algorithms for automated detection and classification of cancer in medical imaging, with focus on improving early detection rates.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Computer Vision</span>
+                        <span class="tech-tag">PyTorch</span>
+                        <span class="tech-tag">Medical Imaging</span>
+                        <span class="tech-tag">Deep Learning</span>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <h3>Clinical Decision Support System</h3>
+                    <p>Building an intelligent system that integrates patient data, clinical guidelines, and real-time analytics to provide evidence-based treatment recommendations.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Machine Learning</span>
+                        <span class="tech-tag">EHR Integration</span>
+                        <span class="tech-tag">Clinical Guidelines</span>
+                        <span class="tech-tag">Real-time Analytics</span>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <h3>Digital Health Platform for Underserved Communities</h3>
+                    <p>Developing a comprehensive digital health platform to improve access to cancer care for underserved populations through telemedicine and remote monitoring.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Telemedicine</span>
+                        <span class="tech-tag">Mobile Health</span>
+                        <span class="tech-tag">Remote Monitoring</span>
+                        <span class="tech-tag">Health Equity</span>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <h3>Predictive Analytics for Treatment Outcomes</h3>
+                    <p>Creating predictive models to forecast patient outcomes and treatment responses based on clinical, genomic, and demographic data.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Predictive Modeling</span>
+                        <span class="tech-tag">Genomics</span>
+                        <span class="tech-tag">Statistical Analysis</span>
+                        <span class="tech-tag">Clinical Data</span>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <h3>Automated Treatment Planning System</h3>
+                    <p>Developing AI-driven algorithms to automate and optimize radiation therapy treatment planning, reducing planning time while maintaining quality.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Treatment Planning</span>
+                        <span class="tech-tag">Optimization</span>
+                        <span class="tech-tag">Radiation Therapy</span>
+                        <span class="tech-tag">Automation</span>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <h3>Healthcare Data Interoperability Platform</h3>
+                    <p>Creating a unified platform for seamless data exchange between different healthcare systems and applications, improving care coordination and patient outcomes.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Interoperability</span>
+                        <span class="tech-tag">HL7 FHIR</span>
+                        <span class="tech-tag">API Development</span>
+                        <span class="tech-tag">Data Standards</span>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <h3>Real-time Clinical Analytics Dashboard</h3>
+                    <p>Building a comprehensive analytics platform that provides real-time insights into clinical performance, patient outcomes, and operational efficiency.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Real-time Analytics</span>
+                        <span class="tech-tag">Data Visualization</span>
+                        <span class="tech-tag">Business Intelligence</span>
+                        <span class="tech-tag">Performance Metrics</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Join Our Research Team Section -->
+    <section id="join" class="join-research">
+        <div class="container">
+            <div class="research-content-with-image">
+                <div class="research-text">
+                    <h2>Join Our Research Team</h2>
+                    <p>We're always looking for talented individuals who are passionate about healthcare technology and innovation. Our team includes physicians, researchers, engineers, and students working together to advance the field of AI in healthcare.</p>
+                </div>
+                <div class="research-image-side">
+                    <img src="Pictures/NCBC2025.jpg" alt="NCBC 2025 Conference">
+                </div>
+            </div>
+            
+            <div class="opportunities">
+                <h3>Current Opportunities</h3>
+                <div class="opportunity-grid">
+                    <div class="opportunity-card">
+                        <h4>Research Fellows</h4>
+                        <p>Join our team as a research fellow and contribute to cutting-edge AI projects in healthcare. Ideal for recent graduates or professionals looking to transition into healthcare technology.</p>
+                    </div>
+                    <div class="opportunity-card">
+                        <h4>Clinical Collaborators</h4>
+                        <p>Physicians and healthcare professionals interested in implementing AI solutions in their practice. We provide training and support for clinical integration.</p>
+                    </div>
+                    <div class="opportunity-card">
+                        <h4>Student Internships</h4>
+                        <p>Undergraduate and graduate students can gain hands-on experience in healthcare AI through our internship program. Projects range from data analysis to algorithm development.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="contact-info">
+                <h3>Contact Us</h3>
+                <p>Interested in collaborating or joining our research team? Contact us to learn more about current opportunities and how you can contribute to our mission of advancing healthcare through technology.</p>
+                <a href="mailto:thakertechnology@gmail.com" class="btn btn-primary">Contact Research Team</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container" style="display: flex; align-items: center; justify-content: center; gap: 1rem;">
+            <img src="Pictures/ThakerTechLogo.png" alt="Thaker Technology Logo" style="height: 38px; width: auto; margin-right: 12px; vertical-align: middle;">
+            <p style="margin: 0;">&copy; 2024 Nikhil G. Thaker, MD. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html> 

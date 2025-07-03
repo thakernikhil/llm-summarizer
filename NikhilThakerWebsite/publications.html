@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Publications - Nikhil G. Thaker, MD</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Ensure page starts at top */
+        html {
+            scroll-behavior: auto;
+            scroll-padding-top: 0;
+        }
+        
+        body {
+            scroll-behavior: auto;
+            margin: 0;
+            padding: 0;
+            scroll-padding-top: 0;
+        }
+        
+        /* Force page to start at top */
+        body::before {
+            content: '';
+            display: block;
+            height: 0;
+            width: 0;
+        }
+        
+        /* Ensure navbar styling from styles.css is preserved */
+        .navbar {
+            position: fixed !important;
+            top: 0 !important;
+            width: 100% !important;
+            background: linear-gradient(135deg, rgba(15, 20, 25, 0.98) 0%, rgba(30, 41, 59, 0.98) 100%) !important;
+            backdrop-filter: blur(20px) !important;
+            z-index: 1000 !important;
+            padding: 1rem 0 !important;
+            transition: all 0.3s ease !important;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2) !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+        }
+
+        .publications-hero {
+            background: #0f1419;
+            color: white;
+            padding: 140px 20px 40px 20px;
+            text-align: center;
+            margin-top: 0;
+        }
+
+        .publications-hero h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: whitesmoke;
+        }
+
+        .publications-hero p {
+            font-size: 1.1rem;
+            color: #cbd5e0;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .publications-section {
+            padding-top: 120px;
+            margin-top: 0;
+            background: #f8fafc;
+            padding: 40px 0 30px 0;
+        }
+
+        .publications-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .publications-container h2 {
+            color: #D4AF37;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .publications-container h3 {
+            color: #BFC1C2;
+            margin-bottom: 1rem;
+        }
+
+        .publications-container p {
+            color: #333;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .publications-container ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .publications-container li {
+            background: #f8f9fa;
+            margin-bottom: 1rem;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #D4AF37;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .publications-container li strong {
+            color: #D4AF37;
+        }
+
+        .publications-container li em {
+            color: #666;
+        }
+
+        .publications-title {
+            color: #D4AF37;
+            text-align: center;
+            margin-bottom: 2.5rem;
+            font-size: 2rem;
+            font-weight: 600;
+            padding-top: 1rem;
+            border-bottom: 2px solid rgba(212, 175, 55, 0.3);
+            padding-bottom: 1rem;
+        }
+
+        .research-themes p {
+            color: black;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .publications-list {
+            background: white;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 0;
+        }
+
+        .publication-entry {
+            padding: 15px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .publication-entry:last-child {
+            border-bottom: none;
+        }
+
+        .publication-entry:hover {
+            background-color: #f8fafc;
+            margin: 0 -10px;
+            padding: 15px 10px;
+            border-radius: 4px;
+        }
+
+        .pub-title {
+            font-weight: 600;
+            color: #3b82f6;
+            font-size: 0.95rem;
+            line-height: 1.3;
+            margin-bottom: 5px;
+        }
+
+        .pub-title a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .pub-title a:hover {
+            text-decoration: underline;
+        }
+
+        .pub-authors {
+            color: #475569;
+            font-style: italic;
+            font-size: 0.85rem;
+            margin-bottom: 3px;
+        }
+
+        .pub-journal {
+            color: #64748b;
+            font-weight: 500;
+            font-size: 0.8rem;
+        }
+
+        .back-to-research {
+            position: fixed;
+            top: 80px;
+            left: 20px;
+            z-index: 1000;
+        }
+
+        .back-to-research a {
+            background: #3b82f6;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.85rem;
+        }
+
+        .back-to-research a:hover {
+            background: #2563eb;
+        }
+
+        @media (max-width: 768px) {
+            .publications-hero h1 {
+                font-size: 2rem;
+            }
+
+            .back-to-research {
+                position: static;
+                text-align: center;
+                margin-bottom: 1rem;
+            }
+
+            .publications-list {
+                padding: 15px;
+            }
+
+            .publication-entry {
+                padding: 12px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">
+                    <img src="Pictures/ThakerTechLogo.png" alt="Thaker Technology Logo">
+                </a>
+                <a href="index.html">
+                    <span class="logo-text">THAKER</span>
+                    <span class="logo-tech">TECHNOLOGY</span>
+                    <div class="logo-line"></div>
+                </a>
+                <a href="index.html">
+                    <span class="logo-text" style="color: #D4AF37;">BAYTA</span>
+                    <span class="logo-tech">SYSTEMS</span>
+                    <div class="logo-line" style="background: #D4AF37;"></div>
+                </a>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="research.html" class="nav-link">Research Overview</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#contact" class="nav-link">Contact Us</a>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Back to Research Button -->
+    <div class="back-to-research">
+        <a href="research.html">← Back to Research</a>
+    </div>
+
+    <!-- Publications Hero Section -->
+    <section class="publications-hero">
+        <div class="publications-hero-content">
+            <h1>Selected Publications</h1>
+            <p>Selected collection of peer-reviewed research and clinical publications from the Thaker Technology Lab Lab</p>
+        </div>
+    </section>
+
+    <!-- Research Overview Section -->
+    <section id="research-overview" class="research-overview">
+        <div class="container">
+            <div class="research-content-with-image">
+                <div class="research-text">
+                    <h2>Research Themes</h2>
+                    <section class="research-themes">
+                        <div class="container">
+                            <p>Radiation Oncology Innovation & Clinical Practice</p>
+                            <p>Artificial Intelligence & Digital Health in Oncology</p>
+                            <p>Value-Based Health Care & Cost Analysis</p>
+                            <p>Health Policy, Reimbursement & Access</p>
+                            <p>Educational Leadership & Simulation-Based Learning</p>
+                            <p>Foundational Research in Neuroscience & Glioblastoma</p>
+                            <p>Internet of (Medical) Things (IoMT) & Informatics</p>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            
+        </div>
+    </section>
+
+    <!-- Publications Heading - Immediately Visible -->
+    <section class="publications-heading-section">
+        <div class="container">
+            <h2 class="publications-title">Publications (Scroll to see more)</h2>
+        </div>
+    </section>
+
+    <!-- Publications Section -->
+    <section class="publications-section">
+        <div class="publications-container">
+            
+            <div class="publications-list">
+                <div class="publication-entry">
+                    <div class="pub-title"><a href="https://pubmed.ncbi.nlm.nih.gov/19783622/" target="_blank">Identification of Survival Genes in Human Glioblastoma Cells Using siRNA Screening</a></div>
+                    <div class="pub-authors">Thaker NG, McDonald PR, Zhang F, et al.</div>
+                    <div class="pub-journal">Molecular Pharmacology</div>
+                </div>
+                
+                <div class="publication-entry">
+                    <div class="pub-title"><a href="https://pubmed.ncbi.nlm.nih.gov/19782703/" target="_blank">Designing, Optimizing, and Implementing High‑Throughput siRNA Genomic Screening with Glioma Cells for the Discovery of Survival Genes and Novel Drug Targets</a></div>
+                    <div class="pub-authors">Thaker NG, McDonald PR, Zhang F, et al.</div>
+                    <div class="pub-journal">Journal of Neuroscience Methods</div>
+                </div>
+                
+                <div class="publication-entry">
+                    <div class="pub-title"><a href="https://pubmed.ncbi.nlm.nih.gov/20043719/" target="_blank">Functional Genomic Analysis of Glioblastoma Multiforme Through Short Interfering RNA Screening: A Paradigm for Therapeutic Development</a></div>
+                    <div class="pub-authors">Thaker NG, Zhang F, Shun TY, et al.</div>
+                    <div class="pub-journal">Neurosurgical Focus</div>
+                </div>
+                
+                       
+                <div class="publication-entry">
+                    <div class="pub-title"><a href="https://pubmed.ncbi.nlm.nih.gov/21990495/" target="_blank">Computed Tomographic Angiography vs Digital Subtraction Angiography for Post‑operative Detection of Residual Aneurysms: A Meta‑Analysis</a></div>
+                    <div class="pub-authors">Thaker NG, Turner JD, Cobb WS, et al.</div>
+                    <div class="pub-journal">Journal of NeuroInterventional Surgery</div>
+                </div>
+                
+                <div class="publication-entry">
+                    <div class="pub-title"><a href="https://pubmed.ncbi.nlm.nih.gov/21483091/" target="_blank">Brain‑Reactive Autoantibodies Prevalent in Human Sera Increase Intraneuronal Amyloid Beta 1‑42 (Aβ42) Deposition</a></div>
+                    <div class="pub-authors">Nagele RG, Clifford PM, Siu G, Thaker NG, et al.</div>
+                    <div class="pub-journal">Journal of Alzheimer's Disease</div>
+                </div>
+                
+                <div class="publication-entry">
+                    <div class="pub-title"><a href="https://pubmed.ncbi.nlm.nih.gov/22249011/" target="_blank">Reduction of Displaced Hangman's Fracture by Compression Across Crossed Translaminar Screws: Technical Note</a></div>
+                    <div class="pub-authors">Mammis A, Yanni DS, Thaker NG, et al.</div>
+                    <div class="pub-journal">Journal of Clinical Neuroscience</div>
+                </div>
+                
+                <div class="publication-entry">
+                    <div class="pub-title"><a href="http://med-ed-online.net/index.php/meo/article/view/5245" target="_blank">Evaluation of Medical School Applicants Is Enhanced by Current Medical Student Input</a></div>
+                    <div class="pub-authors">Gutowski N, Thaker NG, Heinrich GF, et al.</div>
+                    <div class="pub-journal">Medical Education Online</div>
+                </div>
+                
+                <div class="publication-entry">
+                    <div class="pub-title"><a href="https://pubmed.ncbi.nlm.nih.gov/19951140/" target="_blank">Molecularly Targeted Therapeutics for Malignant Glioma: Rationale for Combinatorial Strategies</a></div>
+                    <div class="pub-authors">Thaker NG, Pollack IF, et al.</div>
+                    <div class="pub-journal">Expert Review of Neurotherapeutics</div>
+                </div>
+                
+                <div class="publication-entry">
+                    <div class="pub-title"><a href="https://pubmed.ncbi.nlm.nih.gov/25151539/" target="_blank">Establishing High‑Quality Prostate Brachytherapy Using a Phantom Simulator Training Program</a></div>
+                    <div class="pub-authors">Thaker NG, Mahmood U, Pugh TJ, et al.</div>
+                    <div class="pub-journal">International Journal of Radiation Oncology, Biology, Physics</div>
+                </div>
+                
+                <div class="publication-entry">
+                    <div class="pub-title"><a href="https://pubmed.ncbi.nlm.nih.gov/25279958/" target="_blank">Auto‑segmentation of the Brachial Plexus Assessed with TaCTICS – A Software Platform for Rapid Multiple‑Metric Quantitative Evaluation of Contours</a></div>
+                    <div class="pub-authors">Awan M, Kalpathy‑Cramer J, Bongers E, et al.</div>
+                    <div class="pub-journal">Acta Oncologica</div>
+                </div>
+                
+                <div class="publication-entry">
+                    <div class="pub-title"><a href="https://pubmed.ncbi.nlm.nih.gov/25524458/" target="_blank">Survival Outcomes for Patients with Pelvic Lymph Node Positive Stage IVB Vulvar Cancer: Time To Reconsider the FIGO Staging System?</a></div>
+                    <div class="pub-authors">Thaker NG, Klopp AH, Jhingran A, et al.</div>
+                    <div class="pub-journal">Gynecologic Oncology</div>
+                </div>
+                
+                <div class="publication-entry">
+                    <div class="pub-title"><a href="https://pubmed.ncbi.nlm.nih.gov/25674496/" target="_blank">The 21‑Gene Recurrence Score Complements IBTR! Estimates in Early‑Stage, Hormone Receptor‑Positive, HER2‑Normal, Lymph Node‑Negative Breast Cancer</a></div>
+                    <div class="pub-authors">Thaker NG, Hoffman KE, Stauder MC, et al.</div>
+                    <div class="pub-journal">SpringerPlus</div>
+                </div>
+                
+                <div class="publication-entry">
+                    <div class="pub-title"><a href="https://pubmed.ncbi.nlm.nih.gov/25968822/" target="_blank">Medical Student Perspectives on a Multi‑institutional Clerkship Curriculum: A Report From the Radiation Oncology Education Collaborative Study Group</a></div>
+                    <div class="pub-authors">Ye JC, Mohindra P, Spektor A, Thaker NG, et al.</div>
+                    <div class="pub-journal">International Journal of Radiation Oncology Biology Physics</div>
+                </div>
+                
+                <div class="publication-entry">
+                    <div class="pub-title"><a href="https://www.jacr.org/article/S1546-1440(15)00581-5/abstract" target="_blank">Implementation and Evaluation of a Multi‑institutional Pilot Curriculum for the Medical Student Clerkship</a></div>
+                    <div class="pub-authors">Golden DW, Spektor A, Krishnan MS, Thaker NG, et al.</div>
+                    <div class="pub-journal">Journal of the American College of Radiology</div>
+                </div>
+                
+                <div class="publication-entry">
+                    <div class="pub-title"><a href="https://pubmed.ncbi.nlm.nih.gov/26916105/" target="_blank">Defining the Value Framework for Prostate Brachytherapy Using Patient‑Centered Outcome Metrics and Time‑Driven Activity‑Based Costing</a></div>
+                    <div class="pub-authors">Thaker NG, Pugh TJ, Mahmood U, et al.</div>
+                    <div class="pub-journal">Brachytherapy</div>
+                </div>
+                
+                <div class="publication-entry">
+                    <div class="pub-title"><a href="https://pubmed.ncbi.nlm.nih.gov/31772961/" target="_blank">Advanced Radiation Therapy Techniques for Retinoblastoma: The MD Anderson Cancer Center Experience</a></div>
+                    <div class="pub-authors">Agarwal A, Thaker NG, Tawk B, et al.</div>
+                    <div class="pub-journal">International Journal of Particle Therapy</div>
+                </div>
+                
+                <div class="publication-entry">
+                    <div class="pub-title"><a href="https://pubmed.ncbi.nlm.nih.gov/26931402/" target="_blank">Assessing the Quality of a Radiation Oncology Case‑based Peer Review Program in an Integrated Academic and Community Cancer Center Network</a></div>
+                    <div class="pub-authors">Thaker NG, Sturdevant L, Jhingran A, et al.</div>
+                    <div class="pub-journal">Journal of Oncology Practice</div>
+                </div>
+                
+                <div class="publication-entry">
+                    <div class="pub-title"><a href="https://pubmed.ncbi.nlm.nih.gov/31772962/" target="_blank">Variations in Proton Therapy Coverage in the State of Texas: Defining Medical Necessity for a Safe and Effective Treatment</a></div>
+                    <div class="pub-authors">Thaker NG, Agarwal A, Palmer M, et al.</div>
+                    <div class="pub-journal">International Journal of Particle Therapy</div>
+                </div>
+                
+                <div class="publication-entry">
+                    <div class="pub-title"><a href="https://pubmed.ncbi.nlm.nih.gov/30992185/" target="_blank">Quantifying Institutional Resource Utilization of Adjuvant Brachytherapy and Intensity‑Modulated Radiation Therapy for Endometrial Cancer via Time‑Driven Activity‑Based Costing</a></div>
+                    <div class="pub-authors">Ning MS, Klopp AH, Jhingran A, Thaker NG, et al.</div>
+                    <div class="pub-journal">Brachytherapy</div>
+                </div>
+                
+                <div class="publication-entry">
+                    <div class="pub-title"><a href="https://pubmed.ncbi.nlm.nih.gov/31786169/" target="_blank">Developing an Intraoperative 3T MRI‑Guided Brachytherapy Program within a Diagnostic Imaging Suite: Methods, Process Workflow, and Value‑Based Analysis</a></div>
+                    <div class="pub-authors">Ning MS, Venkatesan AM, Stafford RJ, Thaker NG, et al.</div>
+                    <div class="pub-journal">Brachytherapy</div>
+                </div>
+                
+                <div class="publication-entry">
+                    <div class="pub-title"><a href="https://pubmed.ncbi.nlm.nih.gov/39653279/" target="_blank">Dissemination and Implementation – A Primer for Accelerating "Time to Translation" in Radiation Oncology</a></div>
+                    <div class="pub-authors">Santos PMG, Silverwood S, Suneja G, Thaker NG, et al.</div>
+                    <div class="pub-journal">International Journal of Radiation Oncology Biology Physics</div>
+                </div>
+                
+                <div class="publication-entry">
+                    <div class="pub-title"><a href="https://pubmed.ncbi.nlm.nih.gov/34376368/" target="_blank">A Primer on Time‑Driven Activity‑Based Costing in Brachytherapy</a></div>
+                    <div class="pub-authors">Mulherkar R, Keller AM, Showalter TN, Thaker NG, et al.</div>
+                    <div class="pub-journal">Brachytherapy</div>
+                </div>
+                
+                <div class="publication-entry">
+                    <div class="pub-title"><a href="https://pubmed.ncbi.nlm.nih.gov/29519605/" target="_blank">Time‑Driven Activity‑Based Cost Comparison of Prostate Cancer Brachytherapy and Intensity‑Modulated Radiation Therapy</a></div>
+                    <div class="pub-authors">Dutta SW, Bauer‑Nilsen K, Sanders JC, Thaker NG, et al.</div>
+                    <div class="pub-journal">Brachytherapy</div>
+                </div>
+                
+                <div class="publication-entry">
+                    <div class="pub-title"><a href="https://pubmed.ncbi.nlm.nih.gov/30557675/" target="_blank">The Insurance Approval Process for Proton Radiation Therapy: A Significant Barrier to Patient Care</a></div>
+                    <div class="pub-authors">Ning MS, Gomez DR, Shah AK, Thaker NG, et al.</div>
+                    <div class="pub-journal">International Journal of Radiation Oncology Biology Physics</div>
+                </div>
+                
+                <div class="publication-entry">
+                    <div class="pub-title"><a href="https://pubmed.ncbi.nlm.nih.gov/34238689/" target="_blank">Impact of the Radiation Oncology Alternative Payment Model on Brachytherapy Reimbursement</a></div>
+                    <div class="pub-authors">Thaker NG, Meghani R, Wilson C, et al.</div>
+                    <div class="pub-journal">Brachytherapy</div>
+                </div>
+                
+                <div class="publication-entry">
+                    <div class="pub-title"><a href="https://pubmed.ncbi.nlm.nih.gov/34148829/" target="_blank">Geographic Access to Brachytherapy Services in the United States</a></div>
+                    <div class="pub-authors">Bates JE, Thaker NG, Parekh A, et al.</div>
+                    <div class="pub-journal">Brachytherapy</div>
+                </div>
+                
+                <div class="publication-entry">
+                    <div class="pub-title"><a href="https://pubmed.ncbi.nlm.nih.gov/34732290/" target="_blank">American Brachytherapy Society Radiation Oncology Alternative Payment Model Task Force: Quality Measures and Metrics for Brachytherapy</a></div>
+                    <div class="pub-authors">Shah C, Vicini F, Beriwal S, Thaker NG, et al.</div>
+                    <div class="pub-journal">Brachytherapy</div>
+                </div>
+                
+                <div class="publication-entry">
+                    <div class="pub-title"><a href="https://doi.org/10.1200/OP.21.00291" target="_blank">Compromising Care of Cervical Cancer Patients through Disincentivizing Brachytherapy: Exploring the Impact of Reimbursement on Utilization and Outcomes</a></div>
+                    <div class="pub-authors">Boyce‑Fappiano D, Nguyen KA, Kamrava M, Thaker NG, et al.</div>
+                    <div class="pub-journal">JCO Oncology Practice</div>
+                </div>
+                
+                <div class="publication-entry">
+                    <div class="pub-title"><a href="https://pubmed.ncbi.nlm.nih.gov/32155108/" target="_blank">Automated Big Data Analytics for the Radiation Oncology Alternative Payment Model within The US Oncology Network Using a Novel Healthcare Software Technology</a></div>
+                    <div class="pub-authors">Thaker NG, Holloway J, Hodapp C, Mellen M, Fryefield D, Meghani R, Tong K, Rose CM, et al.</div>
+                    <div class="pub-journal">JCO Oncology Practice</div>
+                </div>
+                
+                <div class="publication-entry">
+                    <div class="pub-title"><a href="https://pubmed.ncbi.nlm.nih.gov/32422397/" target="_blank">Radiation Oncology APM: An Introduction and Primer for the Proposed Rule for Practices and Providers</a></div>
+                    <div class="pub-authors">Li R, Yashar C, Thaker NG, Beriwal S, Glaser S</div>
+                    <div class="pub-journal">Pract Radiat Oncol</div>
+                </div>
+                
+                <div class="publication-entry">
+                    <div class="pub-title"><a href="https://pubmed.ncbi.nlm.nih.gov/33561722/" target="_blank">Developing a Value Framework: Utilizing Administrative Data to Assess an Enhanced Care Initiative</a></div>
+                    <div class="pub-authors">Allen CJ, Eska JS, Thaker NG, Feeley TW, Kaplan RS, Huey RW, et al.</div>
+                    <div class="pub-journal">Journal of Surgical Research</div>
+                </div>
+                
+                <div class="publication-entry">
+                    <div class="pub-title"><a href="https://pubmed.ncbi.nlm.nih.gov/32417351/" target="_blank">Patient-reported Outcomes, Physician-reported Toxicities, and Treatment Outcomes in a Modern Cohort of Patients with Sinonasal Cancer Treated Using Proton Beam Therapy</a></div>
+                    <div class="pub-authors">Pasalic D, Ludmir EB, Allen PK, Thaker NG, et al.</div>
+                    <div class="pub-journal">Radiotherapy and Oncology</div>
+                </div>
+                
+                <div class="publication-entry">
+                    <div class="pub-title"><a href="https://pubmed.ncbi.nlm.nih.gov/32154853/" target="_blank">Radiation Oncology Alternative Payment Model (RO‑APM)</a></div>
+                    <div class="pub-authors">Royce TJ, Thaker NG, Agarwal A</div>
+                    <div class="pub-journal">JAMA</div>
+                </div>
+                
+                <div class="publication-entry">
+                    <div class="pub-title"><a href="https://pubmed.ncbi.nlm.nih.gov/32952054/" target="_blank">Development, Implementation, and Outcomes of a Simulation-Based Medical Education Prostate Brachytherapy Workshop for Radiation Oncology Residents</a></div>
+                    <div class="pub-authors">Mesko S, Chapman BV, Tang C, Frank SJ, Thaker NG, et al.</div>
+                    <div class="pub-journal">Brachytherapy</div>
+                </div>
+                
+                <div class="publication-entry">
+                    <div class="pub-title"><a href="https://pubmed.ncbi.nlm.nih.gov/34285963/" target="_blank">Activity‑Based Costing of Intensity‑Modulated Proton versus Photon Therapy for Oropharyngeal Cancer</a></div>
+                    <div class="pub-authors">Thaker NG, Boyce‑Fappiano D, Ning MS, Pasalic D, Guzman A, Smith G, Holliday EB, Incalcaterra J, Garden AS, Shaitelman SF, Gunn GB, Fuller CD, Blanchard P, Feeley TW, Kaplan RS, Frank SJ</div>
+                    <div class="pub-journal">International Journal of Particle Therapy</div>
+                </div>
+                
+                <div class="publication-entry">
+                    <div class="pub-title"><a href="https://pubmed.ncbi.nlm.nih.gov/34285960/" target="_blank">Cost‑Effectiveness Models of Proton Therapy for Head and Neck: Evaluating Quality and Methods to Date</a></div>
+                    <div class="pub-authors">Huang D, Frank SJ, Verma V, Thaker NG, Brooks ED, Palmer MB, Harrison RF, Deshmukh AA, Ning MS</div>
+                    <div class="pub-journal">International Journal of Particle Therapy</div>
+                </div>
+                
+                <div class="publication-entry">
+                    <div class="pub-title"><a href="https://doi.org/10.37549/aro1322" target="_blank">Practical Applications of the Internet of Things in Radiation Oncology</a></div>
+                    <div class="pub-authors">Thaker NG, De B, Shah C, Manda S, Royce TJ, Beriwal S</div>
+                    <div class="pub-journal">Applied Radiation Oncology</div>
+                </div>
+                
+                <div class="publication-entry">
+                    <div class="pub-title"><a href="https://pubmed.ncbi.nlm.nih.gov/36427644/" target="_blank">Radiotherapy Expenditures Through the First Eight Episodes of the Oncology Care Model</a></div>
+                    <div class="pub-authors">De B, Andres G, Bates C, Staren E, Kutscher E, Brooks D, Thaker GH, Buscema J, Gin R, Thaker NG</div>
+                    <div class="pub-journal">International Journal of Radiation Oncology Biology Physics</div>
+                </div>
+                
+                <div class="publication-entry">
+                    <div class="pub-title"><a href="https://pubmed.ncbi.nlm.nih.gov/36586492/" target="_blank">Cost‑Effectiveness Analysis of Ultra‑Hypofractionated Whole Breast Radiation Therapy Alone vs. Endocrine Therapy Alone or Combined Treatment for Low‑Risk ER‑Positive Early‑Stage Breast Cancer in Women Age 65+</a></div>
+                    <div class="pub-authors">Ward MC, Recht A, Vicini F, Al‑Hilli Z, Chadha M, Pierce L, Thaker N, Khan A, Keisch M, Shah C</div>
+                    <div class="pub-journal">International Journal of Radiation Oncology Biology Physics</div>
+                </div>
+                
+                <div class="publication-entry">
+                    <div class="pub-title"><a href="https://doi.org/10.1089/aipo.2023.0007" target="_blank">Large Language Models Encode Radiation Oncology Domain Knowledge: Performance on the ACR Standardized Examination</a></div>
+                    <div class="pub-authors">Thaker NG, Redjal N, Loaiza‑Bonilla A, Penberthy D, Showalter T, Choudhri A, Williamson S, Thaker GH, Shah C, Ward MC, Thaker MG, Arcaro M</div>
+                    <div class="pub-journal">AI in Precision Oncology</div>
+                </div>
+                
+                <div class="publication-entry">
+                    <div class="pub-title"><a href="#" target="_blank">Prospective Daily Peer‑review Reduces Re‑Planning and Activity‑based Costs in a Network of Community Radiation Oncology Centers</a></div>
+                    <div class="pub-authors">Thaker NG, et al.</div>
+                    <div class="pub-journal">Quality Management in Health Care (Under review)</div>
+                </div>
+                
+                <div class="publication-entry">
+                    <div class="pub-title"><a href="https://doi.org/10.1089/aipo.2023.0003" target="_blank">The Role of Artificial Intelligence in Early Cancer Detection: A Primer on Artificial Intelligence</a></div>
+                    <div class="pub-authors">Thaker NG, Dicker AP, Loaiza‑Bonilla A, et al.</div>
+                    <div class="pub-journal">AI in Precision Oncology</div>
+                </div>
+                
+                <div class="publication-entry">
+                    <div class="pub-title"><a href="https://pubmed.ncbi.nlm.nih.gov/35326674/" target="_blank">The Role of Artificial Intelligence in Early Cancer Detection: Exploring Early Clinical Applications</a></div>
+                    <div class="pub-authors">Thaker NG, Dicker AP, Loaiza‑Bonilla A, Wallace A, Kolman D, et al.</div>
+                    <div class="pub-journal">AI in Precision Oncology</div>
+                </div>
+                
+                <div class="publication-entry">
+                    <div class="pub-title"><a href="https://pubmed.ncbi.nlm.nih.gov/38640824/" target="_blank">Artificial Intelligence for Early Breast Cancer Detection</a></div>
+                    <div class="pub-authors">Ghazaryan L, Deendyal V, Linden E, Allen L, Thaker NG</div>
+                    <div class="pub-journal">AI in Precision Oncology</div>
+                </div>
+                
+                <div class="publication-entry">
+                    <div class="pub-title"><a href="# target="_blank">RadOncRAG: A Novel Retrieval‑Augmented Generation Framework Improves Large Language Model Benchmark Performance in Radiation Oncology</a></div>
+                    <div class="pub-authors">Thaker NG, Redjal N, Dicker A, Loaiza‑Bonilla A, Royce T, Subbiah V, Law A, Deendyal V, Gabriel J, Shetty N, et al.</div>
+                    <div class="pub-journal" IJROBP (Under Review)>
+                </div>
+                
+                <div class="publication-entry">
+                    <div class="pub-title"><a href="#" target="_blank">The Future of Scientific Publishing in Oncology: Content Designed for Artificial Intelligence Ingestion</a></div>
+                    <div class="pub-authors">Thaker NG, Flora D</div>
+                    <div class="pub-journal">AI in Precision Oncology (Under Review
+                </div>
+                
+                <div class="publication-entry">
+                    <div class="pub-title"><a href="#" target="_blank">Artificial Intelligence‑Powered Internet of Medical Things in Radiation Oncology</a></div>
+                    <div class="pub-authors">Thaker NG, Penberthy D, Beriwal S, Royce TJ, Showalter T, Redjal N, Doria C</div>
+                    <div class="pub-journal">AI in Precision Oncology (Under Review
+                </div>
+                
+                <div class="publication-entry">
+                    <div class="pub-title"><a href="https://www.hbs.edu/faculty/Pages/item.aspx?num=55256" target="_blank">Defining the Value of Proton Therapy in an Evolving Healthcare System Using Time‑Driven Activity‑Based Costing</a></div>
+                    <div class="pub-authors">Thaker NG, Guzman AB, Feeley TW, Jones TM, Incalcaterra JR, Kolom C, Tatum LS, Walters RS, Cantor SB, Rosenthal DI, Garden AS, Gunn GB, Fuller CD, Palmer MB, Frank SJ</div>
+                    <div class="pub-journal">Oncology Payers, Policy Makers, and Prescribers</div>
+                </div>
+                
+                <div class="publication-entry">
+                    <div class="pub-title"><a href="https://pubmed.ncbi.nlm.nih.gov/25483219/" target="_blank">Predictors of Breast Radiotherapy Plan Modifications: Quality Assurance Rounds in a Large Cancer Centre</a></div>
+                    <div class="pub-authors">Thaker NG, Kuban DA, Buchholz TA</div>
+                    <div class="pub-journal">Radiotherapy and Oncology</div>
+                </div>
+                
+                <div class="publication-entry">
+                    <div class="pub-title"><a href="https://hbr.org/2015/10/measuring-and-communicating-health-care-value-with-charts" target="_blank">Measuring and Communicating Health Care Value with Charts</a></div>
+                    <div class="pub-authors">Kaplan RS, Blackstone RP, Haas DA, Thaker NG, Frank SJ</div>
+                    <div class="pub-journal">Harvard Business Review</div>
+                </div>
+                
+                <div class="publication-entry">
+                    <div class="pub-title"><a href="https://pubmed.ncbi.nlm.nih.gov/27856223/" target="_blank">Time‑Driven Activity‑Based Costing in Emergency Medicine</a></div>
+                    <div class="pub-authors">Deal NS, Babber PA, Thaker NG</div>
+                    <div class="pub-journal">Annals of Emergency Medicine</div>
+                </div>
+                
+                <div class="publication-entry">
+                    <div class="pub-title"><a href="https://jopblog.org/blog/2019/12/16/de‑constructing‑the‑proposed‑radiation‑oncology‑model‑payment‑methodology‑implications‑for‑practices‑and‑opportunities‑for‑improvement" target="_blank">De‑Constructing the Proposed Radiation Oncology Model Payment Methodology: Implications for Practices and Opportunities for Improvement</a></div>
+                    <div class="pub-authors">Thaker NG, Staggs S, Meghani R</div>
+                    <div class="pub-journal">JOP Blog</div>
+                </div>
+                
+                <div class="publication-entry">
+                    <div class="pub-title"><a href="https://pubmed.ncbi.nlm.nih.gov/32693964/" target="_blank">Future of Alternative Payment Models and Big Data Analytics in the Post‑COVID‑19 Era: Implications for Radiation Oncology</a></div>
+                    <div class="pub-authors">Thaker NG, Rewari A, Hubbard A</div>
+                    <div class="pub-journal">International Journal of Radiation Oncology Biology Physics</div>
+                </div>
+                
+                <div class="publication-entry">
+                    <div class="pub-title"><a href="https://pubmed.ncbi.nlm.nih.gov/33740321/" target="_blank">Radiation Therapy Following COVID‑19: Making the Case for a Brachytherapy Renaissance</a></div>
+                    <div class="pub-authors">Williams VM, Kahn JM, Thaker NG, Beriwal S, Nguyen P, Arthur D, Petereit D, Dyer BA</div>
+                    <div class="pub-journal">Advances in Radiation Oncology</div>
+                </div>
+                
+                <div class="publication-entry">
+                    <div class="pub-title"><a href="https://doi.org/10.1200/OP.21.00200" target="_blank">Payment Methodology for the Radiation Oncology Alternative Payment Model (RO‑APM): Primary Concerns and Suggestions for Improvement</a></div>
+                    <div class="pub-authors">Boyce‑Fappiano D, Ning MS, Gjyshi O, Chang AJ, Thaker NG</div>
+                    <div class="pub-journal">JCO Oncology Practice</div>
+                </div>
+                
+                <div class="publication-entry">
+                    <div class="pub-title"><a href="https://liebertpub.com/doi/abs/10.1089/aipo.2023.0004?journalCode=aipo" target="_blank">Designing Prompts for Generative Artificial Intelligence in Clinical Oncology Contexts</a></div>
+                    <div class="pub-authors">Flora DB, Thaker NG</div>
+                    <div class="pub-journal">AI in Precision Oncology</div>
+                </div>
+                
+                <div class="publication-entry">
+                    <div class="pub-title"><a href="https://www.liebertpub.com/doi/10.1089/aipo.2024.0014" target="_blank">Charting the Ethical Course: Transformative Insights and Imperatives from the RAISE Conference on Responsible AI for Health Care</a></div>
+                    <div class="pub-authors">Subbiah V, Thaker NG</div>
+                    <div class="pub-journal">AI in Precision Oncology</div>
+                </div>
+                
+                <div class="publication-entry">
+                    <div class="pub-title"><a href="https://doi.org/10.1089/aipo.2024.0031" target="_blank">Bringing AI to the Clinic for Pancreatic Cancer Care: The Imperative for Seamless Integration into Clinical Workflows</a></div>
+                    <div class="pub-authors">Thaker NG, Loaiza‑Bonilla A, Choudhri A, Doria C</div>
+                    <div class="pub-journal">AI in Precision Oncology</div>
+                </div>
+                
+                <div class="publication-entry">
+                    <div class="pub-title"><a href="https://www.liebertpub.com/doi/10.1089/aipo.2024.0047" target="_blank">The Evolving Role of Physician Informaticists in Oncology in the Era of Artificial Intelligence</a></div>
+                    <div class="pub-authors">Thaker NG, Gold D, Kim E, Hong J, Jain A, Royce T, Thompson R, Fuller CD</div>
+                    <div class="pub-journal">AI in Precision Oncology</div>
+                </div>
+                
+                <div class="publication-entry">
+                    <div class="pub-title"><a href="https://doi.org/10.1089/aipo.2024.0048" target="_blank">Prompt Engineering for Oncologists: Enhancing Patient Care and Clinical Efficiency with AI</a></div>
+                    <div class="pub-authors">Flora DB, Thaker NG</div>
+                    <div class="pub-journal">AI in Precision Oncology</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container" style="display: flex; align-items: center; justify-content: center; gap: 1rem;">
+            <img src="Pictures/ThakerTechLogo.png" alt="Thaker Technology Logo" style="height: 38px; width: auto; margin-right: 12px; vertical-align: middle;">
+            <p style="margin: 0;">&copy; 2024 Nikhil G. Thaker, MD. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Force page to start at top
+        window.addEventListener('load', function() {
+            window.scrollTo(0, 0);
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        });
+        
+        // Also ensure top position on DOM ready
+        document.addEventListener('DOMContentLoaded', function() {
+            window.scrollTo(0, 0);
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        });
+        
+        // Force scroll to top immediately
+        window.scrollTo(0, 0);
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    </script>
+</body>
+</html> 

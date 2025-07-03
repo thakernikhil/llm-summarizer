@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM Summarizer - Thaker Technology</title>
+    <link rel="icon" type="image/png" href="ThakerTechLogo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #ffffff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: linear-gradient(135deg, rgba(15, 20, 25, 0.98) 0%, rgba(30, 41, 59, 0.98) 100%);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-logo a {
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .nav-logo img {
+            height: 60px;
+            width: auto;
+            margin-right: 1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-logo img:hover {
+            transform: scale(1.1);
+            filter: brightness(1.2);
+        }
+
+        .logo-text {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: #BFC1C2;
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px rgba(191, 193, 194, 0.5);
+            position: relative;
+        }
+
+        .logo-text::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #BFC1C2, #D1D3D4, #BFC1C2);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-radius: 4px;
+        }
+
+        .nav-logo a:hover .logo-text::before {
+            opacity: 0.3;
+        }
+
+        .logo-tech {
+            font-family: 'Orbitron', monospace;
+            font-size: 0.8rem;
+            font-weight: 400;
+            color: #94a3b8;
+            letter-spacing: 2px;
+            margin-top: 2px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-logo a:hover .logo-tech {
+            color: #D4AF37;
+        }
+
+        .logo-line {
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #BFC1C2, #D4AF37);
+            margin-top: 4px;
+            transition: width 0.3s ease;
+            box-shadow: 0 0 10px rgba(191, 193, 194, 0.5);
+        }
+
+        .nav-logo a:hover .logo-line {
+            width: 100%;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-item {
+            list-style: none;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #e2e8f0;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-link:hover {
+            color: #D4AF37;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(90deg, #BFC1C2, #D4AF37);
+            transition: width 0.3s ease;
+            box-shadow: 0 0 10px rgba(191, 193, 194, 0.5);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, #0f1419 0%, #1e293b 50%, #334155 100%);
+            color: white;
+            padding-top: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(212,175,55,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+        }
+
+        .hero-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #BFC1C2, #D4AF37);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+        }
+
+        .highlight {
+            color: #D4AF37;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.8);
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: #94a3b8;
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            color: #cbd5e1;
+            margin-bottom: 3rem;
+            line-height: 1.8;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            cursor: pointer;
+            font-size: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #D4AF37, #f4d03f);
+            color: #1e293b;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #D4AF37;
+            border: 2px solid #D4AF37;
+        }
+
+        .btn-secondary:hover {
+            background: #D4AF37;
+            color: #1e293b;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 4rem 0;
+            background: #f8fafc;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #1e293b;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #BFC1C2, #D4AF37);
+            border-radius: 2px;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+        }
+
+        .app-container {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .instructions {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(191, 193, 194, 0.1) 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            border-left: 4px solid #D4AF37;
+        }
+
+        .instructions h3 {
+            color: #1e293b;
+            margin-bottom: 1rem;
+            font-family: 'Orbitron', monospace;
+            font-size: 1.2rem;
+        }
+
+        .instructions ol {
+            color: #475569;
+            line-height: 1.8;
+        }
+
+        .instructions li {
+            margin-bottom: 0.5rem;
+        }
+
+        .button-container {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .capture-btn {
+            background: linear-gradient(45deg, #D4AF37, #f4d03f);
+            color: #1e293b;
+            border: none;
+            padding: 1.2rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+            margin: 0.5rem;
+        }
+
+        .capture-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+        }
+
+        .capture-btn:disabled {
+            background: #94a3b8;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .paste-btn {
+            background: linear-gradient(45deg, #BFC1C2, #94a3b8);
+            color: #1e293b;
+            border: none;
+            padding: 1.2rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(191, 193, 194, 0.3);
+            margin: 0.5rem;
+        }
+
+        .paste-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(191, 193, 194, 0.4);
+        }
+
+        #imagePreview {
+            max-width: 100%;
+            margin: 2rem 0;
+            border: 3px solid rgba(212, 175, 55, 0.3);
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        #outputText {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            border: 2px solid rgba(212, 175, 55, 0.2);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-top: 2rem;
+            min-height: 150px;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.8;
+            color: #1e293b;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .loading {
+            text-align: center;
+            font-style: italic;
+            color: #D4AF37;
+            font-weight: 500;
+        }
+
+        .error {
+            color: #ef4444;
+            background: rgba(239, 68, 68, 0.1);
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            border-left: 4px solid #ef4444;
+        }
+
+        .export-container {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 2px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .export-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+        }
+
+        .export-btn {
+            background: linear-gradient(45deg, #BFC1C2, #94a3b8);
+            color: #1e293b;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(191, 193, 194, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .export-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(191, 193, 194, 0.4);
+        }
+
+        .export-btn:disabled {
+            background: #94a3b8;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Crop overlay styles */
+        .crop-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(15, 20, 25, 0.9);
+            z-index: 2000;
+            display: none;
+            backdrop-filter: blur(10px);
+        }
+
+        .crop-container {
+            position: relative;
+            display: inline-block;
+            max-width: 90vw;
+            max-height: 90vh;
+            margin: 20px;
+        }
+
+        .crop-image {
+            max-width: 100%;
+            max-height: 100%;
+            cursor: crosshair;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .crop-selection {
+            position: absolute;
+            border: 3px solid #D4AF37;
+            background: rgba(212, 175, 55, 0.2);
+            cursor: crosshair;
+            display: none;
+            pointer-events: none;
+            will-change: left, top, width, height;
+            border-radius: 5px;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+        }
+
+        .crop-controls {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(15, 20, 25, 0.95);
+            padding: 1.5rem;
+            border-radius: 15px;
+            z-index: 2001;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .crop-controls button {
+            margin: 0 0.5rem;
+            padding: 0.8rem 1.5rem;
+            font-size: 0.9rem;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .crop-instructions {
+            position: fixed;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(15, 20, 25, 0.95);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            z-index: 2001;
+            text-align: center;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .crop-instructions strong {
+            color: #D4AF37;
+            font-family: 'Orbitron', monospace;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-container {
+                text-align: center;
+                gap: 2rem;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .app-container {
+                padding: 2rem;
+                margin: 0 1rem;
+            }
+
+            .nav-logo {
+                gap: 1rem;
+            }
+
+            .logo-text {
+                font-size: 1rem;
+            }
+
+            .logo-tech {
+                font-size: 0.6rem;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .export-buttons {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .btn {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.9rem;
+            }
+
+            .app-container {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="#home">
+                    <img src="ThakerTechLogo.png" alt="Thaker Technology Logo">
+                </a>
+                <a href="https://nikhilthaker.bayta.us/" target="_blank">
+                    <span class="logo-text">THAKER</span>
+                    <span class="logo-tech">TECHNOLOGY</span>
+                    <div class="logo-line"></div>
+                </a>
+                <a href="https://nikhilthaker.bayta.us/" target="_blank">
+                    <span class="logo-text" style="color: #D4AF37;">BAYTA</span>
+                    <span class="logo-tech">SYSTEMS</span>
+                    <div class="logo-line" style="background: #D4AF37;"></div>
+                </a>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#app" class="nav-link">Extract Text</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title"><span class="highlight">LLM</span> Summarizer</h1>
+                <p class="hero-subtitle">Advanced OCR & Text Processing</p>
+                <p class="hero-description">
+                    Transform screenshots into searchable text with our advanced OCR technology. 
+                    Capture any portion of your screen and instantly extract text content for analysis, 
+                    documentation, or processing. Powered by cutting-edge AI and designed for professionals.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#app" class="btn btn-primary">Get Started</a>
+                    <a href="#instructions" class="btn btn-secondary">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section id="app" class="main-content">
+        <div class="container">
+            <h2 class="section-title">Text Extraction Tool</h2>
+            
+            <div class="app-container">
+                <div id="instructions" class="instructions">
+                    <h3><i class="fas fa-info-circle"></i> How to Use</h3>
+                    <ol>
+                        <li>Click the "Capture Screen" button below</li>
+                        <li>Select a tab, window, or entire screen</li>
+                        <li>Use the crop tool to select the specific area you want</li>
+                        <li>The selected area will be processed with OCR</li>
+                        <li>View the transcribed text below</li>
+                    </ol>
+                    <p><em><i class="fas fa-lightbulb"></i> Works best in Chrome, Edge, or other Chromium-based browsers.</em></p>
+                </div>
+
+                <div class="button-container">
+                    <button id="captureButton" class="capture-btn">
+                        <i class="fas fa-camera"></i> Capture Screen
+                    </button>
+                    <button id="pasteButton" class="paste-btn">
+                        <i class="fas fa-paste"></i> Paste from Clipboard
+                    </button>
+                </div>
+                
+                <div><img id="imagePreview" alt="Screenshot will appear here" /></div>
+                <div id="outputText">OCR output will appear here...</div>
+                
+                <div class="export-container" id="exportContainer" style="display: none;">
+                    <h3 style="color: #1e293b; margin-bottom: 1rem; font-family: 'Orbitron', monospace; font-size: 1.1rem;">
+                        <i class="fas fa-download"></i> Export Options
+                    </h3>
+                    <div class="export-buttons">
+                        <button id="copyTextBtn" class="export-btn">
+                            <i class="fas fa-copy"></i> Copy Text
+                        </button>
+                        <button id="createPdfBtn" class="export-btn">
+                            <i class="fas fa-file-pdf"></i> Create PDF
+                        </button>
+                        <button id="createWordBtn" class="export-btn">
+                            <i class="fas fa-file-word"></i> Create Word Document
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Crop overlay -->
+    <div class="crop-overlay" id="cropOverlay">
+        <div class="crop-instructions">
+            <strong>Select the area you want to capture:</strong><br>
+            Click and drag to create a selection box, release to finish
+        </div>
+        <div class="crop-container">
+            <img id="cropImage" class="crop-image" alt="Screenshot to crop" />
+            <div class="crop-selection" id="cropSelection"></div>
+        </div>
+        <div class="crop-controls">
+            <button id="cropButton" class="capture-btn">✂️ Crop & Process</button>
+            <button id="cancelCropButton" class="paste-btn">❌ Cancel</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4.0.2/dist/tesseract.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script>
+        const captureButton = document.getElementById('captureButton');
+        const pasteButton = document.getElementById('pasteButton');
+        const imagePreview = document.getElementById('imagePreview');
+        const outputText = document.getElementById('outputText');
+        const cropOverlay = document.getElementById('cropOverlay');
+        const cropImage = document.getElementById('cropImage');
+        const cropSelection = document.getElementById('cropSelection');
+        const cropButton = document.getElementById('cropButton');
+        const cancelCropButton = document.getElementById('cancelCropButton');
+        const exportContainer = document.getElementById('exportContainer');
+        const copyTextBtn = document.getElementById('copyTextBtn');
+        const createPdfBtn = document.getElementById('createPdfBtn');
+        const createWordBtn = document.getElementById('createWordBtn');
+
+        let isSelecting = false;
+        let startX, startY, endX, endY;
+        let originalImageData = null;
+        let extractedText = '';
+
+        // Screen Capture API with crop functionality
+        captureButton.addEventListener('click', async () => {
+            try {
+                captureButton.disabled = true;
+                captureButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Selecting area...';
+                
+                const stream = await navigator.mediaDevices.getDisplayMedia({
+                    video: {
+                        mediaSource: 'screen'
+                    }
+                });
+                
+                const video = document.createElement('video');
+                video.srcObject = stream;
+                video.play();
+                
+                video.addEventListener('loadedmetadata', () => {
+                    const canvas = document.createElement('canvas');
+                    canvas.width = video.videoWidth;
+                    canvas.height = video.videoHeight;
+                    
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(video, 0, 0);
+                    
+                    // Stop the stream
+                    stream.getTracks().forEach(track => track.stop());
+                    
+                    // Convert to blob and show crop interface
+                    canvas.toBlob(async (blob) => {
+                        const url = URL.createObjectURL(blob);
+                        originalImageData = { blob, url };
+                        cropImage.src = url;
+                        cropOverlay.style.display = 'block';
+                        setupCropInterface();
+                    }, 'image/png');
+                });
+                
+            } catch (err) {
+                console.error('Screen capture failed:', err);
+                outputText.innerHTML = '<div class="error"><i class="fas fa-exclamation-triangle"></i> Screen capture failed. Please ensure you have the necessary permissions and are using a supported browser.</div>';
+            } finally {
+                captureButton.disabled = false;
+                captureButton.innerHTML = '<i class="fas fa-camera"></i> Capture Screen';
+            }
+        });
+
+        // Setup crop interface
+        function setupCropInterface() {
+            cropImage.addEventListener('mousedown', startSelection);
+            document.addEventListener('mousemove', updateSelection);
+            document.addEventListener('mouseup', endSelection);
+            
+            cropButton.addEventListener('click', processCrop);
+            cancelCropButton.addEventListener('click', cancelCrop);
+        }
+
+        function startSelection(e) {
+            e.preventDefault();
+            isSelecting = true;
+            const rect = cropImage.getBoundingClientRect();
+            startX = e.clientX - rect.left;
+            startY = e.clientY - rect.top;
+            endX = startX;
+            endY = startY;
+            
+            cropSelection.style.display = 'block';
+            cropImage.style.cursor = 'crosshair';
+            updateSelectionDisplay();
+        }
+
+        function updateSelection(e) {
+            if (!isSelecting) return;
+            
+            e.preventDefault();
+            const rect = cropImage.getBoundingClientRect();
+            endX = Math.max(0, Math.min(e.clientX - rect.left, cropImage.offsetWidth));
+            endY = Math.max(0, Math.min(e.clientY - rect.top, cropImage.offsetHeight));
+            
+            updateSelectionDisplay();
+        }
+
+        function endSelection(e) {
+            if (!isSelecting) return;
+            isSelecting = false;
+            cropImage.style.cursor = 'default';
+        }
+
+        function updateSelectionDisplay() {
+            const left = Math.min(startX, endX);
+            const top = Math.min(startY, endY);
+            const width = Math.abs(endX - startX);
+            const height = Math.abs(endY - startY);
+            
+            // Only update if there's a meaningful selection
+            if (width > 5 && height > 5) {
+                cropSelection.style.left = left + 'px';
+                cropSelection.style.top = top + 'px';
+                cropSelection.style.width = width + 'px';
+                cropSelection.style.height = height + 'px';
+            }
+        }
+
+        function processCrop() {
+            if (!originalImageData) return;
+            
+            const left = Math.min(startX, endX);
+            const top = Math.min(startY, endY);
+            const width = Math.abs(endX - startX);
+            const height = Math.abs(endY - startY);
+            
+            // Create a new canvas for the cropped image
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            
+            const img = new Image();
+            img.onload = () => {
+                // Calculate scale factor
+                const scaleX = img.naturalWidth / cropImage.offsetWidth;
+                const scaleY = img.naturalHeight / cropImage.offsetHeight;
+                
+                canvas.width = width * scaleX;
+                canvas.height = height * scaleY;
+                
+                ctx.drawImage(img, 
+                    left * scaleX, top * scaleY, width * scaleX, height * scaleY,
+                    0, 0, width * scaleX, height * scaleY
+                );
+                
+                canvas.toBlob(async (blob) => {
+                    const url = URL.createObjectURL(blob);
+                    imagePreview.src = url;
+                    imagePreview.style.display = 'block';
+                    
+                    await performOCR(blob);
+                    cropOverlay.style.display = 'none';
+                }, 'image/png');
+            };
+            img.src = originalImageData.url;
+        }
+
+        function cancelCrop() {
+            cropOverlay.style.display = 'none';
+            if (originalImageData) {
+                URL.revokeObjectURL(originalImageData.url);
+                originalImageData = null;
+            }
+        }
+
+        // Clipboard paste (fallback)
+        pasteButton.addEventListener('click', () => {
+            navigator.clipboard.read().then(async (items) => {
+                for (let item of items) {
+                    if (!item.types.includes('image/png')) continue;
+
+                    const blob = await item.getType('image/png');
+                    const url = URL.createObjectURL(blob);
+                    imagePreview.src = url;
+                    imagePreview.style.display = 'block';
+
+                    await performOCR(blob);
+                }
+            }).catch(err => {
+                outputText.innerHTML = '<div class="error"><i class="fas fa-exclamation-triangle"></i> Clipboard access failed. Please use Chrome and allow clipboard permissions, or try the screen capture option.</div>';
+                console.error(err);
+            });
+        });
+
+        // OCR processing function
+        async function performOCR(blob) {
+            try {
+                outputText.innerHTML = '<div class="loading"><i class="fas fa-spinner fa-spin"></i> Running OCR analysis...</div>';
+                
+                const { data: { text } } = await Tesseract.recognize(blob, 'eng', {
+                    logger: m => console.log(m)
+                });
+                
+                if (text && text.trim()) {
+                    extractedText = text.trim();
+                    outputText.textContent = extractedText;
+                    exportContainer.style.display = 'block';
+                } else {
+                    extractedText = '';
+                    outputText.textContent = "[No text recognized in the image]";
+                    exportContainer.style.display = 'none';
+                }
+            } catch (err) {
+                console.error('OCR failed:', err);
+                outputText.innerHTML = '<div class="error"><i class="fas fa-exclamation-triangle"></i> OCR processing failed. Please try again with a clearer image.</div>';
+                exportContainer.style.display = 'none';
+            }
+        }
+
+        // Export functionality
+        copyTextBtn.addEventListener('click', async () => {
+            try {
+                await navigator.clipboard.writeText(extractedText);
+                copyTextBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                setTimeout(() => {
+                    copyTextBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Text';
+                }, 2000);
+            } catch (err) {
+                console.error('Failed to copy text:', err);
+                copyTextBtn.innerHTML = '<i class="fas fa-times"></i> Failed';
+                setTimeout(() => {
+                    copyTextBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Text';
+                }, 2000);
+            }
+        });
+
+        createPdfBtn.addEventListener('click', () => {
+            if (!extractedText) return;
+            
+            const element = document.createElement('div');
+            element.innerHTML = `
+                <div style="font-family: Arial, sans-serif; padding: 20px; max-width: 800px; margin: 0 auto;">
+                    <h1 style="color: #1e293b; border-bottom: 2px solid #D4AF37; padding-bottom: 10px;">
+                        Extracted Text - LLM Summarizer
+                    </h1>
+                    <p style="color: #475569; line-height: 1.6; white-space: pre-wrap;">${extractedText}</p>
+                    <p style="color: #94a3b8; font-size: 0.9rem; margin-top: 20px; border-top: 1px solid #e2e8f0; padding-top: 10px;">
+                        Generated by Thaker Technology LLM Summarizer
+                    </p>
+                </div>
+            `;
+            
+            html2pdf().from(element).save('extracted-text.pdf');
+        });
+
+        createWordBtn.addEventListener('click', () => {
+            if (!extractedText) return;
+            
+            const content = `
+                <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+                <head>
+                    <meta charset='utf-8'>
+                    <title>Extracted Text</title>
+                </head>
+                <body>
+                    <h1 style="color: #1e293b; border-bottom: 2px solid #D4AF37; padding-bottom: 10px;">
+                        Extracted Text - LLM Summarizer
+                    </h1>
+                    <p style="color: #475569; line-height: 1.6; white-space: pre-wrap;">${extractedText}</p>
+                    <p style="color: #94a3b8; font-size: 0.9rem; margin-top: 20px; border-top: 1px solid #e2e8f0; padding-top: 10px;">
+                        Generated by Thaker Technology LLM Summarizer
+                    </p>
+                </body>
+                </html>
+            `;
+            
+            const blob = new Blob([content], { type: 'application/msword' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'extracted-text.doc';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
